@@ -2,17 +2,15 @@ package coordinator
 
 import (
 	"time"
-
-	"6.824/mr/common" // Importing common types and constants used across the MapReduce framework
 )
 
 // assignMapJob attempts to assign a pending map job to a worker.
 // It iterates over all map tasks and assigns the first pending task to the worker.
 // Once assigned, it updates the task's status to running and the worker's status to busy.
-func (c *Coordinator) assignMapJob(workerID int) *common.MapJob {
+func (c *Coordinator) assignMapJob(workerID int) *MapJob {
 	for filename, status := range c.mapStatus {
 		if status.Status == StatusPending {
-			job := &common.MapJob{
+			job := &MapJob{
 				InputFile:    filename,
 				MapJobNumber: c.mapTaskNumber,
 				ReducerCount: c.nReducer,
@@ -30,14 +28,14 @@ func (c *Coordinator) assignMapJob(workerID int) *common.MapJob {
 // assignReduceJob attempts to assign a pending reduce job to a worker.
 // It first checks if all map jobs are completed. If so, it assigns the first pending reduce task.
 // The task's status is updated to running, and the worker's status to busy.
-func (c *Coordinator) assignReduceJob(workerID int) *common.ReduceJob {
+func (c *Coordinator) assignReduceJob(workerID int) *ReduceJob {
 	if !c.allMapJobDone() { // Ensure all map jobs are completed before assigning reduce jobs
 		return nil
 	}
 
 	for i, status := range c.reduceStatus {
 		if status.Status == StatusPending {
-			job := &common.ReduceJob{
+			job := &ReduceJob{
 				IntermediateFiles: c.intermediateFiles[i],
 				ReduceNumber:      i,
 			}

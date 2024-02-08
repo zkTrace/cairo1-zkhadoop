@@ -13,7 +13,7 @@ import (
 // RequestTask is called by workers to request a new map or reduce task.
 // It locks the coordinator state, checks the worker's status, and assigns a new task if available.
 // If no tasks are available, it sets the reply to indicate if all tasks are done.
-func (c *Coordinator) RequestTask(args *common.RequestTaskArgs, reply *common.RequestTaskReply) error {
+func (c *Coordinator) RequestTask(args *RequestTaskArgs, reply *RequestTaskReply) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
