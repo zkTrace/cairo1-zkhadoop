@@ -19,11 +19,14 @@ type ReduceJob = common.ReduceJob
 
 // Constants defining possible statuses of tasks and workers.
 const (
-	StatusIdle      = "idle"
-	StatusBusy      = "busy"
-	StatusCompleted = "completed"
+	// For WorkerStatus
+	StatusIdle = "idle"
+	StatusBusy = "busy"
+
+	// For TaskStatus (Map and Reduce Tasks)
 	StatusPending   = "pending"
 	StatusRunning   = "running"
+	StatusCompleted = "completed"
 )
 
 // Coordinator struct represents the central coordinator of the MapReduce job.

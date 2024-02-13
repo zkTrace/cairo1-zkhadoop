@@ -5,15 +5,6 @@ import (
 	"os"
 )
 
-// Job represents a general job with information about the task type, worker number, input, intermediate files, and a quit flag.
-type Job struct {
-	Type              int
-	WorkerNumber      int
-	InputFile         string
-	IntermediateFiles []string
-	ShouldQuit        bool
-}
-
 // MapJob represents a mapping task with input file, job number, and the count of reducers.
 type MapJob struct {
 	InputFile    string
