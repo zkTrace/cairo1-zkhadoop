@@ -19,22 +19,21 @@ func processTask(reply RequestTaskReply, mapf func(string, string) []KeyValue, r
 // processMapTask handles the map task, including reading input, executing the map function, and storing the output.
 func processMapTask(job *MapJob, mapf func(string, string) []KeyValue) {
 	// TODO:
-	// call function to read input file to Cairo
+
+	// call common.ConvertJsonToCairo(job.InputFile) -> outputs cairo data file
+	// if no errors,
+	// call common.CallCairoMap() -> runs cairo mapper
+	//    also handles Cairo shell -> intermediate.json
+	// skip partitioning for now
+	// return data to coordinator
+
 	content, err := os.ReadFile(job.InputFile)
 	if err != nil {
 		log.Fatalf("cannot read %v", job.InputFile)
 	}
 
-	// TODO:
-	// call function to run Cairo code
-
 	kva := mapf(job.InputFile, string(content))
 	sort.Sort(ByKey(kva))
-
-	// TODO:
-	// call function to read Cairo shell output into memory (then partition)
-	// this way can preserve same writeIntermediateFiles
-	// OR can cairo parition it then write to disk
 
 	partitionedKva := partitionByKey(kva, job.ReducerCount)
 	intermediateFiles := writeIntermediateFiles(partitionedKva, job.MapJobNumber)
