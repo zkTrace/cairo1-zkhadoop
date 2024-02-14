@@ -2,5 +2,5 @@
 version = 1
 
 [[package]]
-name = "algorithm"
+name = "cairoreduce"
 version = "0.1.0"

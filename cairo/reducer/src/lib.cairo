@@ -1,43 +1,18 @@
 
-mod matvectmult;
-mod matvecdata_mapper;
-use algorithm::matvecdata_mapper::{create_matrix,create_vector};
-use algorithm::matvectmult::{matrixTrait, vecTrait, mapper, reducer, final_output};
-use core::debug::PrintTrait;
-use core::fmt::Formatter;
+pub mod matvecdata_reducer;
+pub mod matvectmult;
+use cairoreduce::matvecdata_reducer::inter_val::inter_result;
+use cairoreduce::matvectmult::reducer_alg::reducer;
 
-#[cfg(test)]
-mod tests;
 //This script will return the mapper result
 
-fn main() {
-    //Mapper Job
-    let (mat,row,col) = create_matrix();
-    let (vec,vec_length) = create_vector();
-    assert(col==vec_length,'dimension mismatch');
-    let map_res = mapper(@mat, @vec);
-    let total_length= row*col;
-    let map_snapshot= @map_res;
-    let mut i =0;
-    let header: ByteArray = "{\n \"intermediary_values\": [ ";
-    println!("{}",header);
-    loop{
-        if(i>=total_length){
-            break;
-        }
-        let (k1,v1)= *map_snapshot.at(i);
-        let kvpair: ByteArray=format!("[{},{}]", k1, v1);
-       
-        i+=1;
-        print!("{}",kvpair);
-        if(i<total_length){
-            print!(",")
-        }
+fn main(job_id: u32) {
+  
+    let map_res: Array<(u32, felt252)> = inter_result();
 
-    };
-    let end: ByteArray = "]\n}";
-    println!("{}",end);
-
-
+    // Reducer Job
+    // let job_id: u32=2;
+    let (k2,v2): (u32, felt252) = reducer(job_id, @map_res);    
+    println!("K/V pair for reducer is({},{})",k2,v2);
 
 }

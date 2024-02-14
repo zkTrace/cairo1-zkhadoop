@@ -2,9 +2,9 @@ use core::dict::Felt252DictTrait;
 use core::traits::TryInto;
 use core::traits::Into;
 use array::ArrayTrait;
-use option::OptionTrait;
 use core::debug::PrintTrait;
 
+pub mod reducer_alg{
 /////////////////////////////////////////////////
 //* A simple matrix structure 
 //* Internal Representation: (row, col, value)
@@ -87,24 +87,7 @@ trait vecTrait {
     fn get_size(self: @Vec) -> u32;
 }
 
-/////////////////////////////////////////////////
-// Implement the printing function of the vector
-/////////////////////////////////////////////////
-impl vecPrintImpl of PrintTrait<Vec> {
-    fn print(self: Vec) {
-        // self.size.print();
-        let mut i = 0;
-        loop {
-            if (i >= self.size) {
-                break;
-            }
-            let (_index, value) = self.data.at(i);
-            let temp_val = *value;
-            temp_val.print();
-            i += 1;
-        }
-    }
-}
+
 /////////////////////////////////////////////////
 // Implementation fo MatrixTrait
 /////////////////////////////////////////////////
@@ -240,7 +223,7 @@ fn mapper(mat: @Matrix, vec: @Vec) -> Array<(u32, felt252)> {
 //* @param mapper_result: Result of the vector
 //* @return result: Array of (index,value) 
 /////////////////////////////////////////////////
-fn reducer(key: u32, mapper_result: @Array<(u32, felt252)>) -> (u32, felt252) {
+pub fn reducer(key: u32, mapper_result: @Array<(u32, felt252)>) -> (u32, felt252) {
     let mut sum = 0;
     let mut i = 0;
     let total_length = mapper_result.len();
@@ -282,3 +265,4 @@ fn final_output(size: u32, mapper_result: @Array<(u32, felt252)>) -> Vec {
 
 
 
+}
