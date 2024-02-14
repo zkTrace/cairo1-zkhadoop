@@ -3,7 +3,7 @@ package coordinator
 import (
 	"sync"
 
-	"6.824/mr/common" // Importing common types and constants used in the MapReduce framework
+	"server/mr/common" // Importing common types and constants used in the MapReduce framework
 )
 
 // Type aliases for request and reply structs for tasks and job reports.

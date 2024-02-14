@@ -3,8 +3,8 @@ package mr
 // keep this to work with MIT testing framework
 
 import (
-	"6.824/mr/common"
-	"6.824/mr/worker"
+	"server/mr/common"
+	"server/mr/worker"
 )
 
 type KeyValue = common.KeyValue

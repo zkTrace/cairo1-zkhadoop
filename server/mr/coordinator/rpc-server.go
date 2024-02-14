@@ -7,7 +7,7 @@ import (
 	"net/rpc"
 	"os"
 
-	"6.824/mr/common" // Import common types and utilities for MapReduce.
+	"server/mr/common" // Import common types and utilities for MapReduce.
 )
 
 // RequestTask is called by workers to request a new map or reduce task.

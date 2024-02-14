@@ -42,6 +42,14 @@ func processMapTask(job *MapJob, mapf func(string, string) []KeyValue) {
 	reportMapTaskToCoordinator(job.InputFile, intermediateFiles)
 }
 
+func ConvertIntermediateToCairo() {
+	panic("unimplemented")
+}
+
+func ConvertJsonToCairo() {
+	panic("unimplemented")
+}
+
 // processReduceTask handles the reduce task, including reading intermediate files, executing the reduce function, and writing the output.
 func processReduceTask(job *ReduceJob, reducef func(string, []string) string) {
 	// TODO:

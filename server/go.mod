@@ -1,3 +1,3 @@
-module 6.824
+module server
 
 go 1.15

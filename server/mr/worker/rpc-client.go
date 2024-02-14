@@ -5,7 +5,7 @@ import (
 	"net/rpc"
 	"os"
 
-	"6.824/mr/common"
+	"server/mr/common"
 )
 
 // requestTaskFromCoordinator sends an RPC request to the coordinator to fetch a new map or reduce task.

@@ -3,7 +3,7 @@ package worker
 import (
 	"hash/fnv"
 
-	"6.824/mr/common"
+	"server/mr/common"
 )
 
 type KeyValue = common.KeyValue
