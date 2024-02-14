@@ -21,7 +21,7 @@ func CalLCairoMap(mapJobNumber int) {
 	filename := fmt.Sprintf("mr-%d-%d", mapJobNumber, mapJobNumber)
 
 	// Define the directory where the file will be saved.
-	outputDir := "../../main/mr-tmp"
+	outputDir := "../../data/mr-tmp"
 	executionDir := "../../../cairo/map/src"
 
 	// Ensure the output directory exists.
