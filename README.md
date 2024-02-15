@@ -12,6 +12,16 @@ go build -buildmode=plugin ../mrapps/wc.go
 bash test-mr.sh
 ```
 
-## Todo
+## Docker
 
-[] integrate cairo
+build docker with
+
+```sh
+docker build -t zkscales-server`
+```
+
+run docker with
+
+```sh
+docker run -it zkscales-server
+```
