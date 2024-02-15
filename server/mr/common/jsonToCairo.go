@@ -12,9 +12,10 @@ import (
 // should take filename as input?
 
 // This script will take a user json file and then output it as a cairo file for the mapper
-func ConvertJsonToCairo() {
-	var filename = "../../data/input.json"
-	var data Result = read_json(filename)
+//var filename = "../../data/input.json"
+
+func ConvertJsonToCairo(input string, dst string) {
+	var data Result = read_json(input)
 	var mat, vect = data.Matrix, data.Vector
 	fmt.Printf("Matrix: %v\n", mat)
 	fmt.Printf("Vector: %v\n", vect)
@@ -25,8 +26,7 @@ func ConvertJsonToCairo() {
 	fmt.Printf("vector size: %v\n", vec_size)
 	assert(vec_size == col, "dimension mismatch")
 
-	var write_file = "matvecdata_mapper-test.cairo"
-	write_cairo_file(data, write_file)
+	write_cairo_file(data, dst)
 }
 
 type Result struct {
