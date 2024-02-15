@@ -17,7 +17,7 @@ bash test-mr.sh
 build docker with
 
 ```sh
-docker build -t zkscales-server`
+docker build -t zkscales-server .
 ```
 
 run docker with

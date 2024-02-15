@@ -39,7 +39,7 @@ func CallCairoMap(mapJobNumber int, dst string) []string {
 	fullPath := filepath.Join(outputDir, filename)
 
 	// Append the fullPath of the created file to the filenames slice
-	filenames[0] = filename
+	filenames = append(filenames, filename)
 
 	// Create the output file.
 	outFile, err := os.Create(fullPath)

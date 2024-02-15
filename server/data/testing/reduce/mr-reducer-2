@@ -1,6 +1,6 @@
    Compiling cairoreduce v0.1.0 (/Users/felixmeng/Desktop/go-server/cairo/reducer/Scarb.toml)
     Finished release target(s) in 1 second
      Running cairoreduce
-K/V pair for reducer is(1,17)
+K/V pair for reducer is(2,80)
 Run completed successfully, returning []
 Remaining gas: 199606160

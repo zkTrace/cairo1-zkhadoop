@@ -11,7 +11,7 @@ fn create_matrix() -> (Matrix,u32,u32){
 
 //return row, vector_length
 fn create_vector()->(Vec,u32){
-    let vec_test = array![1, 1, 2, 3];
+    let vec_test = array![1, 2, 3, 4];
     let vec = vecTrait::init_array(4, @vec_test);
     (vec,4)
 }
