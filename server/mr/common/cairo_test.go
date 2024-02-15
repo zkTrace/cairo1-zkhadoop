@@ -28,7 +28,7 @@ func TestIntermediaryToCairo(t *testing.T) {
 }
 
 func TestCallingReduce(t *testing.T) {
-	// your test code here
+	// Testing if the resulting file is correct
 	t.Log("Output final reduce file")
 	var dst = "../../data/testing/reduce"
 	var jobid string = "1"
