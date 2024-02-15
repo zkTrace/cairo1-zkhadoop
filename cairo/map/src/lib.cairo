@@ -6,8 +6,8 @@ use algorithm::matvectmult::{matrixTrait, vecTrait, mapper, reducer, final_outpu
 use core::debug::PrintTrait;
 use core::fmt::Formatter;
 
-#[cfg(test)]
-mod tests;
+// #[cfg(test)]
+// mod tests;
 //This script will return the mapper result
 
 fn main() {

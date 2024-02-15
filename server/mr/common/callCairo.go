@@ -18,7 +18,7 @@ import (
 func CallCairoMap(mapJobNumber int, dst string) []string {
 	var filenames []string // Slice to store the names of the intermediate files
 
-	fmt.Println(os.Getwd())
+	// fmt.Println(os.Getwd())
 	// Generate the filename based on mapjob and partition.
 	// temp just make reducer num the same as mapper
 	filename := fmt.Sprintf("mr-%d-%d", mapJobNumber, mapJobNumber)

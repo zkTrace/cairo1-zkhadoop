@@ -1,6 +1,7 @@
 package coordinator
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -44,6 +45,7 @@ func (c *Coordinator) ReportMapTask(args *ReportMapTaskArgs, reply *ReportMapTas
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
+	fmt.Println("ReportMapTask")
 	// Mark the map task as completed and the worker as idle.
 	c.mapStatus[args.InputFile] = JobStatus{StartTime: -1, Status: "completed"}
 	c.workerStatus[args.PID] = "idle"
@@ -52,6 +54,7 @@ func (c *Coordinator) ReportMapTask(args *ReportMapTaskArgs, reply *ReportMapTas
 	for r := 0; r < c.nReducer; r++ {
 		c.intermediateFiles[r] = append(c.intermediateFiles[r], args.IntermediateFile[r])
 	}
+	fmt.Println("End of ReportMapTask")
 
 	return nil
 }
