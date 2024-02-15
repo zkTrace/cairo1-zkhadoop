@@ -223,9 +223,10 @@ fn mapper(mat: @Matrix, vec: @Vec) -> Array<(u32, felt252)> {
         assert(*col < col_size && *col < vec_size, 'col mismatch');
         let (_vec_index, vec_value) = vec.data.at(*col);
         //don't need to record zero value
-        if (*vec_value==0){
-            continue;
-        }
+        // if (*vec_value==0){
+        //     i+=1;
+        //     continue;
+        // }
         let value: felt252 = *mat_value * *vec_value;
         let entry = (*row, value);
         result.append(entry);
