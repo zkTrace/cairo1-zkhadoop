@@ -15,7 +15,7 @@ fn main() {
     //Mapper Job
     let (mat,row,col) = create_matrix();
     let (vec,vec_length) = create_vector();
-    assert(col==vec_length,'dimension mismatch');
+    assert(col==vec_length,'dimension mismatch in cairo map');
     let map_res = mapper(@mat, @vec);
     let total_length= row*col;
     let map_snapshot= @map_res;

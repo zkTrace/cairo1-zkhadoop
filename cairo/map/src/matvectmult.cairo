@@ -206,7 +206,7 @@ impl vecTraitImp of vecTrait {
 fn mapper(mat: @Matrix, vec: @Vec) -> Array<(u32, felt252)> {
     let (row_size, col_size) = mat.get_size();
     let vec_size = vec.get_size();
-    assert(vec_size == row_size, 'Dimension mismatch');
+    assert(vec_size == col_size, 'Dimension mismatch');
     let total_length = row_size * col_size;
     assert(total_length == mat.data.len(), 'total len neq matrix len');
     let mut i = 0;

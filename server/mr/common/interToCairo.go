@@ -17,6 +17,7 @@ func ConvertIntermediateToCairo(input string, dst string) {
 	// var read_fileName = "../../files/map_files/mapper_res.txt"
 	var data Data = read_intermediary(input)
 	// write_intermediary(data, "matvecdata_reducer.cairo")
+	fmt.Println(data.IntermediaryValues)
 	write_intermediary(data, dst)
 
 }
