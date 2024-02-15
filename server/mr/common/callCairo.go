@@ -26,7 +26,7 @@ func CalLCairoMap(mapJobNumber int, dst string) {
 	// outputDir := "../../data/mr-tmp"
 	outputDir := dst //created to debug
 	// executionDir := "/../../../cairo/map/src" //not working
-	executionDir := "/Users/felixmeng/Desktop/go-server/cairo/map/src" // working
+	executionDir := "/app/cairo/map/src" // working
 
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories
@@ -69,7 +69,7 @@ func CallCairoReduce(jobid string, dst string) {
 	// outputDir := "../../data/mr-tmp"
 	outputDir := dst //created to debug
 	// executionDir := "../../../../cairo/reduce/src" //not working
-	executionDir := "/Users/felixmeng/Desktop/go-server/cairo/reducer/src"
+	executionDir := "/app/cairo/reducer/src"
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories
 	if err != nil {
