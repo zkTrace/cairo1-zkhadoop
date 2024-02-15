@@ -5,7 +5,7 @@ import (
 )
 
 // Worker continuously requests tasks from the coordinator and processes them.
-func Worker(mapf func(string, string) []KeyValue, reducef func(string, []string) string) {
+func Worker() {
 	for {
 		taskReply := requestTaskFromCoordinator()
 		if taskReply.Done {
@@ -13,6 +13,6 @@ func Worker(mapf func(string, string) []KeyValue, reducef func(string, []string)
 			break
 		}
 
-		processTask(taskReply, mapf, reducef)
+		processTask(taskReply)
 	}
 }

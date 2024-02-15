@@ -11,11 +11,12 @@ import (
 // could call a bash script
 // or run the cairo code directly (current implementation)
 
-// runs main cairo program in a given directory
+// runs main cairo program in a given directory, returns list of intermediate files
 // errs if there is no data provided or if running has error
 // outputs the result of Cairo program to intermedite.json
 // CallCairoMap runs the Cairo program with specified gas and outputs the results to a file.
-func CalLCairoMap(mapJobNumber int, dst string) {
+func CallCairoMap(mapJobNumber int, dst string) []string {
+	var filenames []string // Slice to store the names of the intermediate files
 
 	fmt.Println(os.Getwd())
 	// Generate the filename based on mapjob and partition.
@@ -37,6 +38,9 @@ func CalLCairoMap(mapJobNumber int, dst string) {
 	// Create the full path for the file.
 	fullPath := filepath.Join(outputDir, filename)
 
+	// Append the fullPath of the created file to the filenames slice
+	filenames = append(filenames, filename)
+
 	// Create the output file.
 	outFile, err := os.Create(fullPath)
 	if err != nil {
@@ -45,7 +49,7 @@ func CalLCairoMap(mapJobNumber int, dst string) {
 	defer outFile.Close()
 
 	// Prepare the command to run the Cairo program. Set the execution and output.
-	cmd := exec.Command("scarb", "cairo-run", "--available-gas=200000000")
+	cmd := exec.Command("bash", "exe_map.sh")
 	cmd.Dir = executionDir
 	cmd.Stdout = outFile
 
@@ -56,6 +60,8 @@ func CalLCairoMap(mapJobNumber int, dst string) {
 	}
 
 	fmt.Println("Executed Cairo program successfully, output saved to", fullPath)
+
+	return filenames
 }
 
 // runs main cairo program in a given directory
@@ -63,7 +69,7 @@ func CalLCairoMap(mapJobNumber int, dst string) {
 // outputs the result of Cairo program to mr-out-NUMBER.json
 func CallCairoReduce(jobid string, dst string) {
 	//Name of the reduce file
-	filename := fmt.Sprintf("mr-reducer-%s", jobid)
+	filename := fmt.Sprintf("mr-out-%s", jobid)
 
 	// Define the directory where the file will be saved.
 	// outputDir := "../../data/mr-tmp"

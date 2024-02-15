@@ -1,5 +1,8 @@
 package main
 
+// TODO
+// make this into a sequential runner to test the correct output
+
 //
 // simple sequential MapReduce.
 //

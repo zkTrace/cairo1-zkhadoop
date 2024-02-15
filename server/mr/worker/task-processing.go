@@ -3,21 +3,22 @@ package worker
 import (
 	"log"
 	"os"
-	"sort"
+	"server/mr/common"
+	"strconv"
 )
 
 // processTask dispatches the task to either map or reduce processing.
 // TODO: Cairo code generation -> message coordinator with stack trace
-func processTask(reply RequestTaskReply, mapf func(string, string) []KeyValue, reducef func(string, []string) string) {
+func processTask(reply RequestTaskReply) {
 	if reply.MapJob != nil {
-		processMapTask(reply.MapJob, mapf)
+		processMapTask(reply.MapJob)
 	} else if reply.ReduceJob != nil {
-		processReduceTask(reply.ReduceJob, reducef)
+		processReduceTask(reply.ReduceJob)
 	}
 }
 
 // processMapTask handles the map task, including reading input, executing the map function, and storing the output.
-func processMapTask(job *MapJob, mapf func(string, string) []KeyValue) {
+func processMapTask(job *MapJob) {
 	// TODO:
 
 	// call common.ConvertJsonToCairo(job.InputFile) -> outputs cairo data file
@@ -27,27 +28,42 @@ func processMapTask(job *MapJob, mapf func(string, string) []KeyValue) {
 	// skip partitioning for now
 	// return data to coordinator
 
-	content, err := os.ReadFile(job.InputFile)
+	_, err := os.ReadFile(job.InputFile)
 	if err != nil {
 		log.Fatalf("cannot read %v", job.InputFile)
 	}
 
-	kva := mapf(job.InputFile, string(content))
-	sort.Sort(ByKey(kva))
+	jsonDst := "/app/cairo/map/src/matvecdata_mapper.cairo"
+	common.ConvertJsonToCairo(job.InputFile, jsonDst)
+	// should probably check if the cairo was written successfully
 
-	partitionedKva := partitionByKey(kva, job.ReducerCount)
-	intermediateFiles := writeIntermediateFiles(partitionedKva, job.MapJobNumber)
+	mapDst := "/app/server/data/mr-tmp"
+	intermediateFiles := common.CallCairoMap(job.MapJobNumber, mapDst)
+
+	// skip partitioning for now, here's normal way:
+	// kva := mapf(job.InputFile, string(content))
+	// sort.Sort(ByKey(kva))
+
+	// partitionedKva := partitionByKey(kva, job.ReducerCount)
+	// intermediateFiles := writeIntermediateFiles(partitionedKva, job.MapJobNumber)
 
 	reportMapTaskToCoordinator(job.InputFile, intermediateFiles)
 }
 
 // processReduceTask handles the reduce task, including reading intermediate files, executing the reduce function, and writing the output.
-func processReduceTask(job *ReduceJob, reducef func(string, []string) string) {
+func processReduceTask(job *ReduceJob) {
 	// TODO:
 	// call function to read intermediate file to Cairo
+	// TEMP: just 1 reducer for now
+	dst := "/app/cairo/reducer/src/matvecdata_reducer.cairo"
+	common.ConvertIntermediateToCairo(job.IntermediateFiles[0], dst)
 
-	intermediate := readIntermediateFiles(job.IntermediateFiles)
-	sort.Sort(ByKey(intermediate))
+	reduceDst := "/app/server/data/mr-tmp"
+	reduceNumStr := strconv.Itoa(job.ReduceNumber)
+	common.CallCairoReduce(reduceNumStr, reduceDst)
+
+	// intermediate := readIntermediateFiles(job.IntermediateFiles)
+	// sort.Sort(ByKey(intermediate))
 
 	// TODO:
 	// call function to run Cairo code
@@ -55,6 +71,6 @@ func processReduceTask(job *ReduceJob, reducef func(string, []string) string) {
 	// TODO:
 	// call function to read Cairo shell output to disk
 
-	writeReduceOutput(intermediate, job.ReduceNumber, reducef)
+	// writeReduceOutput(intermediate, job.ReduceNumber, reducef)
 	reportReduceTaskToCoordinator(job.ReduceNumber)
 }

@@ -16,7 +16,7 @@ func TestMapping(t *testing.T) {
 	// Test if I can get a mapper result
 	t.Log("Starting Mapping Test")
 	var dst = "/app/server/data/testing/mr"
-	CalLCairoMap(1, dst)
+	CallCairoMap(1, dst)
 }
 
 func TestIntermediaryToCairo(t *testing.T) {
