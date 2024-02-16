@@ -18,15 +18,12 @@ import (
 func CallCairoMap(mapJobNumber int, dst string) []string {
 	var filenames []string // Slice to store the names of the intermediate files
 
-	// fmt.Println(os.Getwd())
 	// Generate the filename based on mapjob and partition.
 	// temp just make reducer num the same as mapper
 	filename := fmt.Sprintf("mr-%d-%d", mapJobNumber, mapJobNumber)
 
 	// Define the directory where the file will be saved.
-	// outputDir := "../../data/mr-tmp"
-	outputDir := dst //created to debug
-	// executionDir := "/../../../cairo/map/src" //not working
+	outputDir := dst                     //created to debug
 	executionDir := "/app/cairo/map/src" // working
 
 	// Ensure the output directory exists.
@@ -72,9 +69,7 @@ func CallCairoReduce(jobid string, dst string) {
 	filename := fmt.Sprintf("mr-out-%s", jobid)
 
 	// Define the directory where the file will be saved.
-	// outputDir := "../../data/mr-tmp"
 	outputDir := dst //created to debug
-	// executionDir := "../../../../cairo/reduce/src" //not working
 	executionDir := "/app/cairo/reducer/src"
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories

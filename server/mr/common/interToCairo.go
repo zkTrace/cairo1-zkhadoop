@@ -8,23 +8,16 @@ import (
 	"strings"
 )
 
-// TODO:
-// functions and err handling clean up
-// should take filename as input
-
 // This script will take the intermediary file and then write it for the reducer
 func ConvertIntermediateToCairo(input string, dst string) {
-	// var read_fileName = "../../files/map_files/mapper_res.txt"
 	//for Docker
 	var filename = "/app/server/data/mr-tmp/" + input
 	var data Data = read_intermediary(filename)
 
 	//For local test
 	// var data Data = read_intermediary(input)
-
 	// write_intermediary(data, "matvecdata_reducer.cairo")
 
-	fmt.Println(data.IntermediaryValues)
 	write_intermediary(data, dst)
 
 }
