@@ -1,7 +1,6 @@
 package worker
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"server/mr/common"
@@ -47,7 +46,6 @@ func processMapTask(job *MapJob) {
 
 	// partitionedKva := partitionByKey(kva, job.ReducerCount)
 	// intermediateFiles := writeIntermediateFiles(partitionedKva, job.MapJobNumber)
-	fmt.Println("in processMapTask and input is", intermediateFiles)
 	reportMapTaskToCoordinator(job.InputFile, intermediateFiles)
 }
 
@@ -57,7 +55,6 @@ func processReduceTask(job *ReduceJob) {
 	// call function to read intermediate file to Cairo
 	// TEMP: just 1 reducer for now
 	dst := "/app/cairo/reducer/src/matvecdata_reducer.cairo"
-	fmt.Println("in process ReduceTask", job.IntermediateFiles[0])
 	common.ConvertIntermediateToCairo(job.IntermediateFiles[0], dst)
 
 	reduceDst := "/app/server/data/mr-tmp"
@@ -66,12 +63,6 @@ func processReduceTask(job *ReduceJob) {
 
 	// intermediate := readIntermediateFiles(job.IntermediateFiles)
 	// sort.Sort(ByKey(intermediate))
-
-	// TODO:
-	// call function to run Cairo code
-
-	// TODO:
-	// call function to read Cairo shell output to disk
 
 	// writeReduceOutput(intermediate, job.ReduceNumber, reducef)
 	reportReduceTaskToCoordinator(job.ReduceNumber)

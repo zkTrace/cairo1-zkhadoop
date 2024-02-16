@@ -1,7 +1,6 @@
 package worker
 
 import (
-	"fmt"
 	"log"
 	"net/rpc"
 	"os"
@@ -27,8 +26,7 @@ func reportMapTaskToCoordinator(inputFile string, intermediateFiles []string) {
 		IntermediateFile: intermediateFiles, // The output intermediate files produced by the map task.
 		PID:              os.Getpid(),       // The worker's PID.
 	}
-	var reply ReportMapTaskReply // Holder for any response, though typically not used here.
-	fmt.Println("in report reportMapTaskToCoordinator", args)
+	var reply ReportMapTaskReply                     // Holder for any response, though typically not used here.
 	call("Coordinator.ReportMapTask", &args, &reply) // Send the completion report.
 }
 

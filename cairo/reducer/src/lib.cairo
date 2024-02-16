@@ -11,8 +11,18 @@ fn main(job_id: u32) {
     let map_res: Array<(u32, felt252)> = inter_result();
 
     // Reducer Job
-    // let job_id: u32=2;
-    let (k2,v2): (u32, felt252) = reducer(job_id, @map_res);    
-    println!("K/V pair for reducer is({},{})",k2,v2);
+    let (k2,v2): (u32, felt252) = reducer(job_id, @map_res);   
+
+    //printing the output
+    let header: ByteArray = "{\n \"Reducer_Result\": [ ";
+    println!("{}",header);
+
+    print!("({},{})",k2,v2);
+    let end: ByteArray = "]\n}";
+    println!("{}",end);
 
 }
+
+
+   
+  
