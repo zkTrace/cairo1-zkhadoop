@@ -43,7 +43,11 @@ wait $pid
 
 # Output results
 # Make sure to adjust the path for mr-out* files if they are generated in a specific directory
-cat "$PROJECT_ROOT/data/mr-tmp/mr-out-0"
+# cat "$PROJECT_ROOT/data/mr-tmp/mr-out-0" 
+# cat "$PROJECT_ROOT/data/mr-tmp/mr-out-0" | grep -E '{|}|\"' 
+echo "Reducer Result for job_id_0:"
+awk '/{/,/}/{print}' "$PROJECT_ROOT/data/mr-tmp/mr-out-0"
+
 # sort "$PROJECT_ROOT"/mr-out* | grep . > "$PROJECT_ROOT/mr-matmul-all"
 # cat "$PROJECT_ROOT/mr-matmul-all"
 

@@ -17,7 +17,7 @@ fn main(job_id: u32) {
     let header: ByteArray = "{\n \"Reducer_Result\": [ ";
     println!("{}",header);
 
-    print!("({},{})",k2,v2);
+    print!("[{},{}]",k2,v2);
     let end: ByteArray = "]\n}";
     println!("{}",end);
 
