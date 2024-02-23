@@ -8,7 +8,6 @@ import (
 )
 
 // processTask dispatches the task to either map or reduce processing.
-// TODO: Cairo code generation -> message coordinator with stack trace
 func processTask(reply RequestTaskReply) {
 	if reply.MapJob != nil {
 		processMapTask(reply.MapJob)
@@ -19,7 +18,6 @@ func processTask(reply RequestTaskReply) {
 
 // processMapTask handles the map task, including reading input, executing the map function, and storing the output.
 func processMapTask(job *MapJob) {
-	// TODO:
 
 	// call common.ConvertJsonToCairo(job.InputFile) -> outputs cairo data file
 	// if no errors,

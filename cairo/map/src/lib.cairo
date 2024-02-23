@@ -1,8 +1,8 @@
 
 mod matvectmult;
 mod matvecdata_mapper;
-use algorithm::matvecdata_mapper::{create_matrix,create_vector};
-use algorithm::matvectmult::{matrixTrait, vecTrait, mapper, reducer, final_output};
+use cairomap::matvecdata_mapper::{create_matrix,create_vector};
+use cairomap::matvectmult::{matrixTrait, vecTrait, mapper, reducer, final_output};
 use core::debug::PrintTrait;
 use core::fmt::Formatter;
 

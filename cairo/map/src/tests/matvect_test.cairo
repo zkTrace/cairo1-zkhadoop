@@ -1,4 +1,4 @@
-use algorithm::matvectmult::{matrixTrait, vecTrait, mapper, reducer, final_output};
+use cairomap::matvectmult::{matrixTrait, vecTrait, mapper, reducer, final_output};
 use core::debug::PrintTrait;
 
 

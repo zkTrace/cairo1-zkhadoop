@@ -1,5 +1,5 @@
 use array::ArrayTrait;
-use algorithm::matvectmult::{Matrix, Vec, matrixTrait, vecTrait, mapper, reducer, final_output};//return matrix, row, col
+use cairomap::matvectmult::{Matrix, Vec, matrixTrait, vecTrait, mapper, reducer, final_output};//return matrix, row, col
 fn create_matrix() -> (Matrix,u32,u32){
     let row1 = array![1, 2, 3, 4];
     let row2 = array![3, 4, 5, 5];

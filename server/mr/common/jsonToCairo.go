@@ -72,7 +72,7 @@ func write_cairo_file(data Result, filename string) {
 
 	// Step 2: Write the header
 	header := `use array::ArrayTrait;
-use algorithm::matvectmult::{Matrix, Vec, matrixTrait, vecTrait, mapper, reducer, final_output};`
+use cairomap::matvectmult::{Matrix, Vec, matrixTrait, vecTrait, mapper, reducer, final_output};`
 	file.WriteString(header)
 
 	//Step 3: Write the matrix creation function
