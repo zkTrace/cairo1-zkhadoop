@@ -12,12 +12,12 @@ import (
 //var filename = "../../data/input.json"
 
 func AggregateMapperCairo(aggDst string) {
-	fmt.Println("aggregate mapper working")
+	fmt.Println("1aggregate mapper working")
 
 }
 
 func AggregateReducerCairo(aggDst string) {
-	fmt.Println("aggregate reducer working")
+	fmt.Println("2aggregate reducer working")
 
 }
 

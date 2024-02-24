@@ -37,12 +37,12 @@ func processMapTask(job *MapJob) {
 
 	// *********** SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
 	// Section 1: Aggreagted Mapper Cairo
-	aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
-	common.AggregateMapperCairo(aggMapDst)	
+	// aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
+	// common.AggregateMapperCairo(aggMapDst)	
 
-	// Section 2: Aggregated Reducer Cairo
-	aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
-	common.AggregateReducerCairo(aggRedDst)
+	// // Section 2: Aggregated Reducer Cairo
+	// aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
+	// common.AggregateReducerCairo(aggRedDst)
 
 	// Call Cairo Map
 	mapDst := "/app/server/data/mr-tmp"
