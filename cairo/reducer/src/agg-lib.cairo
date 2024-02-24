@@ -1,10 +1,12 @@
-// === Header Start ===
+
+use array::ArrayTrait;
 use core::dict::Felt252DictTrait;
 use core::traits::TryInto;
 use core::traits::Into;
-use array::ArrayTrait;
+use option::OptionTrait;
 use core::debug::PrintTrait;
-// === Header End ===
+use core::fmt::Formatter;
+
 
 /////////////////////////////////////////////////
 //* A simple matrix structure 
@@ -264,3 +266,31 @@ fn final_output(size: u32, mapper_result: @Array<(u32, felt252)>) -> Vec {
     vecTrait::init_array(size, @temp_vec)
 }
 
+pub fn inter_result()->Array<(u32, felt252)>{
+    let inter_res = array![(0,36), (0,108), (0,122), (0,292), (0,9), (0,260), (0,177), (0,62), (0,245), (0,747), (1,36), (1,132), (1,124), (1,164), (1,81), (1,310), (1,285), (1,46), (1,35), (1,477), (2,693), (2,90), (2,96), (2,212), (2,324), (2,860), (2,99), (2,58), (2,154), (2,783), (3,756), (3,92), (3,34), (3,232), (3,882), (3,300), (3,168), (3,78), (3,336), (3,45), (4,0), (4,60), (4,34), (4,96), (4,342), (4,680), (4,138), (4,98), (4,210), (4,360), (5,630), (5,114), (5,110), (5,240), (5,72), (5,830), (5,222), (5,41), (5,448), (5,180), (6,468), (6,60), (6,8), (6,16), (6,567), (6,380), (6,231), (6,84), (6,63), (6,612), (7,171), (7,98), (7,144), (7,188), (7,684), (7,190), (7,42), (7,99), (7,686), (7,108), (8,189), (8,48), (8,88), (8,220), (8,477), (8,570), (8,93), (8,87), (8,245), (8,162), (9,594), (9,44), (9,30), (9,136), (9,522), (9,380), (9,63), (9,84), (9,581), (9,198)];
+    inter_res
+}
+
+
+//This script will return the mapper result
+
+fn main(job_id: u32) {
+  
+    let map_res: Array<(u32, felt252)> = inter_result();
+
+    // Reducer Job
+    let (k2,v2): (u32, felt252) = reducer(job_id, @map_res);   
+
+    //printing the output
+    let header: ByteArray = "{\n \"Reducer_Result\": [ ";
+    println!("{}",header);
+
+    print!("[{},{}]",k2,v2);
+    let end: ByteArray = "]\n}";
+    println!("{}",end);
+
+}
+
+
+   
+  

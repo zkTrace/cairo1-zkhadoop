@@ -1,10 +1,12 @@
-// === Header Start ===
+
+use array::ArrayTrait;
 use core::dict::Felt252DictTrait;
 use core::traits::TryInto;
 use core::traits::Into;
-use array::ArrayTrait;
+use option::OptionTrait;
 use core::debug::PrintTrait;
-// === Header End ===
+use core::fmt::Formatter;
+
 
 /////////////////////////////////////////////////
 //* A simple matrix structure 
@@ -47,7 +49,7 @@ trait matrixTrait {
     /////////////////////////////////////////////////
     fn init_one(row: u32, col: u32) -> Matrix;
 
-/////////////////////////////////////////////////
+   /////////////////////////////////////////////////
     //* Initialze a matrix with array of array
     //* @param col_size: u32
     //* @param row_size: u32
@@ -88,7 +90,24 @@ trait vecTrait {
     fn get_size(self: @Vec) -> u32;
 }
 
-
+/////////////////////////////////////////////////
+// Implement the printing function of the vector
+/////////////////////////////////////////////////
+impl vecPrintImpl of PrintTrait<Vec> {
+    fn print(self: Vec) {
+        // self.size.print();
+        let mut i = 0;
+        loop {
+            if (i >= self.size) {
+                break;
+            }
+            let (_index, value) = self.data.at(i);
+            let temp_val = *value;
+            temp_val.print();
+            i += 1;
+        }
+    }
+}
 /////////////////////////////////////////////////
 // Implementation fo MatrixTrait
 /////////////////////////////////////////////////
@@ -207,9 +226,10 @@ fn mapper(mat: @Matrix, vec: @Vec) -> Array<(u32, felt252)> {
         assert(*col < col_size && *col < vec_size, 'col mismatch');
         let (_vec_index, vec_value) = vec.data.at(*col);
         //don't need to record zero value
-        if (*vec_value==0){
-            continue;
-        }
+        // if (*vec_value==0){
+        //     i+=1;
+        //     continue;
+        // }
         let value: felt252 = *mat_value * *vec_value;
         let entry = (*row, value);
         result.append(entry);
@@ -224,7 +244,7 @@ fn mapper(mat: @Matrix, vec: @Vec) -> Array<(u32, felt252)> {
 //* @param mapper_result: Result of the vector
 //* @return result: Array of (index,value) 
 /////////////////////////////////////////////////
-pub fn reducer(key: u32, mapper_result: @Array<(u32, felt252)>) -> (u32, felt252) {
+fn reducer(key: u32, mapper_result: @Array<(u32, felt252)>) -> (u32, felt252) {
     let mut sum = 0;
     let mut i = 0;
     let total_length = mapper_result.len();
@@ -264,3 +284,60 @@ fn final_output(size: u32, mapper_result: @Array<(u32, felt252)>) -> Vec {
     vecTrait::init_array(size, @temp_vec)
 }
 
+
+
+
+
+fn create_matrix() -> (Matrix,u32,u32){
+    let row1 = array![1, 2, 3, 4];
+    let row2 = array![3, 4, 5, 5];
+    let row3 = array![6, 7, 8, 9];
+    let matrix_array = array![row1, row2, row3];
+    let mat = matrixTrait::init_array(3, 4, @matrix_array);
+    (mat,3,4)
+}
+
+//return row, vector_length
+fn create_vector()->(Vec,u32){
+    let vec_test = array![1, 2, 3, 4];
+    let vec = vecTrait::init_array(4, @vec_test);
+    (vec,4)
+}
+
+
+// #[cfg(test)]
+// mod tests;
+//This script will return the mapper result
+
+fn main() {
+  
+    //Mapper Job
+    let (mat,row,col) = create_matrix();
+    let (vec,vec_length) = create_vector();
+    assert(col==vec_length,'dimension mismatch in cairo map');
+    let map_res = mapper(@mat, @vec);
+    let total_length= row*col;
+    let map_snapshot= @map_res;
+    let mut i =0;
+    let header: ByteArray = "{\n \"intermediary_values\": [ ";
+    println!("{}",header);
+    loop{
+        if(i>=total_length){
+            break;
+        }
+        let (k1,v1)= *map_snapshot.at(i);
+        let kvpair: ByteArray=format!("[{},{}]", k1, v1);
+       
+        i+=1;
+        print!("{}",kvpair);
+        if(i<total_length){
+            print!(",")
+        }
+
+    };
+    let end: ByteArray = "]\n}";
+    println!("{}",end);
+
+
+
+}

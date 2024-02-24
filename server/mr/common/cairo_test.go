@@ -7,9 +7,9 @@ import (
 func TestAggregateCairo(t *testing.T) {
 	// your test code here
 	t.Log("Starting file generation test for aggregated mapper file")
-	aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
-	aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
-	AggregateMapperCairo(aggMapDst)
+	// aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
+	aggRedDst := "/app/cairo/reducer/src/agg-lib.cairo"
+	// AggregateMapperCairo(aggMapDst)
 	AggregateReducerCairo(aggRedDst)
 }
 
