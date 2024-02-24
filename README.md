@@ -1,4 +1,4 @@
-<img width="667" alt="Screenshot 2024-02-24 at 11 06 08 AM" src="https://github.com/STARKScale/zkhadoop-cairo1/assets/47396265/f80e95fb-4d41-4509-83b0-caa99aa413c5">
+<img width="1150" alt="Screenshot 2024-02-24 at 11 06 08 AM" src="https://github.com/STARKScale/zkhadoop-cairo1/assets/47396265/f80e95fb-4d41-4509-83b0-caa99aa413c5">
 
 # STARKScale ~ Let us be your GPU for Verifiable zkML Inferences 🚀
 
