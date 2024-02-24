@@ -4,6 +4,15 @@ import (
 	"testing"
 )
 
+func TestAggregateCairo(t *testing.T) {
+	// your test code here
+	t.Log("Starting file generation test for aggregated mapper file")
+	aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
+	aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
+	AggregateMapperCairo(aggMapDst)
+	AggregateReducerCairo(aggRedDst)
+}
+
 func TestInputToCairo(t *testing.T) {
 	// Test if I can convert a input json into cairo code
 	t.Log("Starting file generatorion test for input file")
