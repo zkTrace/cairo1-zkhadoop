@@ -85,9 +85,9 @@ func write_intermediary(data Data, dst string) {
 	defer file.Close()
 
 	// Write the static part of your desired content
-	file.WriteString("pub mod inter_val{\n")
-	file.WriteString("    pub fn inter_result()->Array<(u32, felt252)>{\n")
-	file.WriteString("        let inter_res = array![")
+	// file.WriteString("pub mod inter_val{\n")
+	file.WriteString("pub fn inter_result()->Array<(u32, felt252)>{\n")
+	file.WriteString("    let inter_res = array![")
 
 	// Dynamically write the data
 	for i, pair := range data.IntermediaryValues {
@@ -99,9 +99,9 @@ func write_intermediary(data Data, dst string) {
 
 	// Write the closing part of your desired content
 	file.WriteString("];\n")
-	file.WriteString("        inter_res\n")
-	file.WriteString("    }\n")
+	file.WriteString("    inter_res\n")
 	file.WriteString("}\n")
+	// file.WriteString("}\n")
 
 	if err != nil {
 		panic(err)

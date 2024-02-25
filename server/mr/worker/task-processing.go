@@ -35,6 +35,16 @@ func processMapTask(job *MapJob) {
 	common.ConvertJsonToCairo(job.InputFile, jsonDst)
 	// should probably check if the cairo was written successfully
 
+	// *********** SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
+	// Section 1: Aggreagted Mapper Cairo
+	// aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
+	// common.AggregateMapperCairo(aggMapDst)	
+
+	// // Section 2: Aggregated Reducer Cairo
+	// aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
+	// common.AggregateReducerCairo(aggRedDst)
+
+	// Call Cairo Map
 	mapDst := "/app/server/data/mr-tmp"
 	intermediateFiles := common.CallCairoMap(job.MapJobNumber, mapDst)
 

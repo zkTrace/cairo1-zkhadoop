@@ -1,9 +1,11 @@
+// === Header Start ===
 use core::dict::Felt252DictTrait;
 use core::traits::TryInto;
 use core::traits::Into;
 use array::ArrayTrait;
 use option::OptionTrait;
 use core::debug::PrintTrait;
+// === Header End ===
 
 /////////////////////////////////////////////////
 //* A simple matrix structure 

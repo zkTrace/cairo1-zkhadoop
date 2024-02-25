@@ -7,9 +7,9 @@ This repository implements the logic of building the distributed system for shar
 
 ## Problem Statement
 
-In the world of machine learning and data analytics, ensuring privacy while performing computations is crucial. However, current Zero-Knowledge Proof (ZKP) systems struggle with large-scale verifiable computations, making it challenging to achieve privacy without sacrificing efficiency. 
+In the world of machine learning and data analytics, ensuring privacy while performing computations is crucial. However, current Zero-Knowledge Proof (ZKP) systems struggle with large-scale verifiable computations, making it challenging to achieve privacy without sacrificing efficiency.
 
-Simply put, zkML is slow and immature. Think of it as the difference between manually tilling land 🌾 and using a high-powered tractor 🚜. 
+Simply put, zkML is slow and immature. Think of it as the difference between manually tilling land 🌾 and using a high-powered tractor 🚜.
 
 One leading frontier of improvement in this area currently is GizaTech, but one of the most glaring bottlenecks in their workflow of verifiable inferences is the inefficiency of large-scale verifiable computations like matrix multiplication. With the release of AI Actions SDK, the friction for developers to instantly create a zkML workflow has diminished, but the friction of proof generation and computation remains the same, especially when we're looking at datasets of 3,000,000+ inputs.
 
@@ -42,7 +42,7 @@ For the sake of this demo, we are currently operating on one node.
 
 ## What is Next
 
-For full cohesiveness, Herodotus's verifier plays a large role in verifying our verifiable inference computations. This is the next step for rounding out the process and fully integrating with GizaTech's mature tech stack. In the meantime, we aim to implement a recursive proof system so that we can compile a singular proof to represent all the work done in this complex system. 
+For full cohesiveness, Herodotus's verifier plays a large role in verifying our verifiable inference computations. This is the next step for rounding out the process and fully integrating with GizaTech's mature tech stack. In the meantime, we aim to implement a recursive proof system so that we can compile a singular proof to represent all the work done in this complex system.
 
 Although we started with MapReduce, we envision this zkSPARK system scaling big data analysis and zkML/algorithmic computation:
 
@@ -53,25 +53,22 @@ Although we started with MapReduce, we envision this zkSPARK system scaling big 
 
 🚀 zkML is a pioneering field of innovation that opens doors to actions such as claiming IP on AI agents, ensuring honest AI computations, and decentralizing computing protocols. But for these possibilities, we believe that we need to lay the groundwork for scaling ZK computations horizontally through STARKScale.
 
-## Running the Code: Docker
+## Running the Code: Docker Compose
 
-Build docker with:
-
-```sh
-docker build -t zkscales-server .
-```
-
-Run docker with:
+# ====== hot reload docker compse ======
 
 ```sh
-docker run -it zkscales-server
-```
+docker-compose up --build
 
-In the docker terminal:
+# separate terminal
+docker-compose exec app bash
+cd server
+go test -v ./mr/common -run TestAggregateCairo
 
-```sh
 cd server/
 bash test-matmult.sh
-```
 
----
+#misc
+docker-compose down
+docker ps
+```

@@ -1,8 +1,9 @@
-
+// === Header Start ===
 pub mod matvecdata_reducer;
 pub mod matvectmult;
-use cairoreduce::matvecdata_reducer::inter_val::inter_result;
-use cairoreduce::matvectmult::reducer_alg::reducer;
+use cairoreduce::matvecdata_reducer::inter_result;
+use cairoreduce::matvectmult::reducer;
+// === Header End ===
 
 //This script will return the mapper result
 
