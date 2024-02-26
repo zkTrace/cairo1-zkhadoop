@@ -18,7 +18,7 @@ RUN make test
 FROM golang:1.21
 RUN apt-get update && \
     curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh; exit 0
-COPY --from=build-stage /app/cairo-vm/target/debug/cairo1-run /app/cairo1-run
+COPY --from=build-stage /app/cairo-vm/target/debug/cairo1-run /app/cairo-vm/target/debug/cairo1-run
 
 # ======== Go Server ========
 WORKDIR /app
@@ -34,7 +34,10 @@ RUN make deps
 # ======== Lambda Works ========
 # COPY ./lambdaworks.bin/ ./lambdaworks.bin
 
+# ======== Misc Commands ========
 ENV PATH="/root/.local/bin:${PATH}"
 EXPOSE 8080
+
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
 # CMD ["/server"]
 # ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
