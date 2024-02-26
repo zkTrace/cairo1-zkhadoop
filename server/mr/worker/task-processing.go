@@ -35,10 +35,9 @@ func processMapTask(job *MapJob) {
 	common.ConvertJsonToCairo(job.InputFile, jsonDst)
 	// should probably check if the cairo was written successfully
 
-	// *********** SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
-	// Section 1: Aggreagted Mapper Cairo
-	// aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
-	// common.AggregateMapperCairo(aggMapDst)	
+	// *********** @Trevor Uncomment SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
+	aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
+	common.AggregateMapperCairo(aggMapDst)	
 
 	// Call Cairo Map
 	mapDst := "/app/server/data/mr-tmp"
@@ -61,10 +60,9 @@ func processReduceTask(job *ReduceJob) {
 	dst := "/app/cairo/reducer/src/matvecdata_reducer.cairo"
 	common.ConvertIntermediateToCairo(job.IntermediateFiles[0], dst)
 
-	// *********** SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
-	// Section 2: Aggregated Reducer Cairo
-	// aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
-	// common.AggregateReducerCairo(aggRedDst)
+	// *********** @Trevor Uncomment: SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
+	aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
+	common.AggregateReducerCairo(aggRedDst)
 
 	reduceDst := "/app/server/data/mr-tmp"
 	reduceNumStr := strconv.Itoa(job.ReduceNumber)
