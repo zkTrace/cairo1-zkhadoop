@@ -42,8 +42,8 @@ func processMapTask(job *MapJob) {
 	// should probably check if the cairo was written successfully
 
 	// *********** @Trevor Uncomment SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
-	aggMapDst := filepath.Join(projectRoot, "cairo/map/src/agg-lib.cairo")
-	common.AggregateMapperCairo(aggMapDst)	
+	aggMapDst := filepath.Join(projectRoot, "cairo/map/src/agg.cairo")
+	common.AggregateMapperCairo(aggMapDst)
 
 	// Call Cairo Map
 	mapDst := filepath.Join(projectRoot, "server/data/mr-tmp")
@@ -69,7 +69,7 @@ func processReduceTask(job *ReduceJob) {
 	common.ConvertIntermediateToCairo(job.IntermediateFiles[0], dst)
 
 	// *********** @Trevor Uncomment: SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
-	aggRedDst := filepath.Join(projectRoot, "cairo/reducer/src/agg-lib.cairo")
+	aggRedDst := filepath.Join(projectRoot, "cairo/reducer/src/agg.cairo")
 	common.AggregateReducerCairo(aggRedDst)
 
 	reduceDst := filepath.Join(projectRoot, "server/data/mr-tmp")
