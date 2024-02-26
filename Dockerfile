@@ -1,22 +1,39 @@
-# image is hella fat, optimize by compiling go code
-# cairo needed at runtime so keep scarb
-FROM golang:1.21
+# ======== Notes ========
+# fix submodule
+# cargo build
+# move bin to dockerfile
+# add bash calls to 
 
-# Install Scarb and thus Cairo
-# exit 0 because downloading scarb can't detect shell
+# ======== Cairo VM ========
+FROM rust:1.67 as build-stage
+RUN apt-get update && \
+    apt-get install -y make
+WORKDIR /app
+COPY ./cairo-vm/ ./cairo-vm
+WORKDIR /app/cairo-vm/cairo1-run
+RUN make deps
+RUN make test
+
+# ======== Install Dependencies ========
+FROM golang:1.21
 RUN apt-get update && \
     curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh; exit 0
+COPY --from=build-stage /app/cairo-vm/target/debug/cairo1-run /app/cairo1-run
 
+# ======== Go Server ========
 WORKDIR /app
 COPY ./cairo/ ./cairo
 COPY ./server/ ./server
 
-# Set any necessary environment variables here
-# Add /root/.local/bin to PATH (for scarb)
+# COPY ./cairo-vm/ ./cairo-vm
+# WORKDIR /app/cairo-vm/cairo1-run
+# RUN make deps
+# RUN make test
+# COPY ../target/debug/cairo1-run /cairo-vm/cairo1-run
+
+# ======== Lambda Works ========
+# COPY ./lambdaworks.bin/ ./lambdaworks.bin
+
 ENV PATH="/root/.local/bin:${PATH}"
-
-# Expose port 8080 to the outside world
 EXPOSE 8080
-
-# Run the binary.
 # CMD ["/server"]

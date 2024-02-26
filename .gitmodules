@@ -1,0 +1,6 @@
+[submodule "cairo-vm"]
+	path = cairo-vm
+	url = https://github.com/lambdaclass/cairo-vm.git
+[submodule "lambdaworks"]
+	path = lambdaworks
+	url = https://github.com/lambdaclass/lambdaworks.git
