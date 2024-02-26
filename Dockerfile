@@ -25,9 +25,9 @@ WORKDIR /app
 COPY ./cairo/ ./cairo
 COPY ./server/ ./server
 
-COPY ./cairo-vm/ ./cairo-vm
-WORKDIR /app/cairo-vm/cairo1-run
-RUN make deps
+# COPY ./cairo-vm/ ./cairo-vm
+# WORKDIR /app/cairo-vm/cairo1-run
+# RUN make deps
 # RUN make test
 # COPY ../target/debug/cairo1-run /cairo-vm/cairo1-run
 
