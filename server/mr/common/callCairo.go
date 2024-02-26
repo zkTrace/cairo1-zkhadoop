@@ -24,7 +24,9 @@ func CallCairoMap(mapJobNumber int, dst string) []string {
 
 	// Define the directory where the file will be saved.
 	outputDir := dst                     //created to debug
-	executionDir := "/app/cairo/map/src" // working
+
+    projectRoot := GetProjectRoot()
+    executionDir := filepath.Join(projectRoot, "cairo/map/src") // Updated path
 
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories
@@ -70,7 +72,11 @@ func CallCairoReduce(jobid string, dst string) {
 
 	// Define the directory where the file will be saved.
 	outputDir := dst //created to debug
-	executionDir := "/app/cairo/reducer/src"
+
+
+    projectRoot := GetProjectRoot()
+    executionDir := filepath.Join(projectRoot, "cairo/reducer/src") // Updated path
+
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories
 	if err != nil {

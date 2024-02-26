@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -13,6 +14,7 @@ import (
 		- input: string
 		- output: write to aggDst
 **/
+
 func AggregateMapperCairo(aggDst string) {
 	fmt.Println("====== Begin Combining all MAPPER Cairo Functions ======", )
 
@@ -26,10 +28,12 @@ use core::debug::PrintTrait;
 use core::fmt::Formatter;
 `
 
+	projectRoot := GetProjectRoot()
+
 	// 3 files lib.cairo, matvectdata_mapper.cairo, matvectmult.cairo
-	mult_cairo, mult_cairo_error := read_cairo("/app/cairo/map/src/matvectmult.cairo")	
-	data_cairo, data_cairo_error := read_cairo("/app/cairo/map/src/matvecdata_mapper.cairo")
-	lib_cairo, lib_cairo_error := read_cairo("/app/cairo/map/src/lib.cairo")
+	mult_cairo, mult_cairo_error := read_cairo(filepath.Join(projectRoot, "cairo/map/src/matvectmult.cairo"))
+	data_cairo, data_cairo_error := read_cairo(filepath.Join(projectRoot, "cairo/map/src/matvecdata_mapper.cairo"))
+	lib_cairo, lib_cairo_error := read_cairo(filepath.Join(projectRoot, "cairo/map/src/lib.cairo"))
 
 	if mult_cairo_error != nil || data_cairo_error != nil || lib_cairo_error != nil {
 		fmt.Println("Error reading file")
@@ -61,10 +65,12 @@ use core::debug::PrintTrait;
 use core::fmt::Formatter;
 `
 
+	projectRoot := GetProjectRoot()
+
 	// 3 files lib.cairo, matvectdata_mapper.cairo, matvectmult.cairo
-	mult_cairo, mult_cairo_error := read_cairo("/app/cairo/reducer/src/matvectmult.cairo")	
-	data_cairo, data_cairo_error := read_cairo("/app/cairo/reducer/src/matvecdata_reducer.cairo")
-	lib_cairo, lib_cairo_error := read_cairo("/app/cairo/reducer/src/lib.cairo")
+	mult_cairo, mult_cairo_error := read_cairo(filepath.Join(projectRoot, "cairo/reducer/src/matvectmult.cairo"))	
+	data_cairo, data_cairo_error := read_cairo(filepath.Join(projectRoot, "cairo/reducer/src/matvecdata_reducer.cairo"))
+	lib_cairo, lib_cairo_error := read_cairo(filepath.Join(projectRoot, "cairo/reducer/src/lib.cairo"))
 
 	if mult_cairo_error != nil || data_cairo_error != nil || lib_cairo_error != nil {
 		fmt.Println("Error reading file")

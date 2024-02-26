@@ -2,7 +2,6 @@ package worker
 
 import (
 	"hash/fnv"
-
 	"server/mr/common"
 )
 
