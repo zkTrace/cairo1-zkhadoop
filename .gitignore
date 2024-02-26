@@ -1,3 +1,13 @@
 cairo/map/target
 .DS_Store
 cairo/reducer/target
+
+**/agg.cairo
+
+**/mapper.memory.bin
+**/mapper.trace.bin
+**/matvecdata_mapper.cairo
+
+**/reducer.memory.bin
+**/reducer.trace.bin
+**/matvecdata_reducer.cairo

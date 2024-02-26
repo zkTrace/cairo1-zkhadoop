@@ -41,3 +41,4 @@ COPY ./server/ ./server
 # ======== Misc Commands ========
 ENV PATH="/root/.local/bin:${PATH}"
 EXPOSE 8080
+

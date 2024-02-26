@@ -34,9 +34,6 @@ func processMapTask(job *MapJob) {
 
 	projectRoot := common.GetProjectRoot()
 
-	log.Printf("DIRECTORY")
-	log.Printf(projectRoot)
-
 	jsonDst := filepath.Join(projectRoot, "cairo/map/src/matvecdata_mapper.cairo")
 	common.ConvertJsonToCairo(job.InputFile, jsonDst)
 	// should probably check if the cairo was written successfully

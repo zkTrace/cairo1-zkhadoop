@@ -14,7 +14,9 @@ func ConvertIntermediateToCairo(input string, dst string) {
 	//for Docker
 	projectRoot := GetProjectRoot()
 
-	var filename = filepath.Join(projectRoot, "server/data/mr-tmp/" + input)
+	var filename = filepath.Join(projectRoot, "server/data/mr-tmp/"+input)
+	fmt.Printf("BITCH")
+	fmt.Printf(filename)
 	var data Data = read_intermediary(filename)
 
 	//For local test

@@ -1,6 +1,7 @@
 package common
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -23,10 +24,10 @@ func CallCairoMap(mapJobNumber int, dst string) []string {
 	filename := fmt.Sprintf("mr-%d-%d", mapJobNumber, mapJobNumber)
 
 	// Define the directory where the file will be saved.
-	outputDir := dst                     //created to debug
+	outputDir := dst //created to debug
 
-    projectRoot := GetProjectRoot()
-    executionDir := filepath.Join(projectRoot, "cairo/map/src") // Updated path
+	projectRoot := GetProjectRoot()
+	executionDir := filepath.Join(projectRoot, "cairo/map/src") // Updated path
 
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories
@@ -52,11 +53,36 @@ func CallCairoMap(mapJobNumber int, dst string) []string {
 	cmd.Dir = executionDir
 	cmd.Stdout = outFile
 
+	prove := exec.Command("bash", "prove_map.sh")
+	prove.Dir = executionDir
+
 	// Run the command.
 	err = cmd.Run()
 	if err != nil {
 		log.Fatalf("Failed to execute command: %s", err)
 	}
+
+    // Create a pipe to the standard output of the prove command
+    stdoutPipe, err := prove.StdoutPipe()
+    if err != nil {
+        log.Fatalf("Failed to create stdout pipe: %s", err)
+    }
+
+    // Start the prove command
+    if err := prove.Start(); err != nil {
+        log.Fatalf("Failed to start prove command: %s", err)
+    }
+
+    // Read from the pipe using a scanner
+    scanner := bufio.NewScanner(stdoutPipe)
+    for scanner.Scan() {
+        log.Println(scanner.Text()) // Print each line of output
+    }
+
+    // Wait for the prove command to complete
+    if err := prove.Wait(); err != nil {
+        log.Fatalf("Failed to complete prove command: %s", err)
+    }
 
 	fmt.Println("Executed Cairo program successfully, output saved to", fullPath)
 
@@ -73,9 +99,8 @@ func CallCairoReduce(jobid string, dst string) {
 	// Define the directory where the file will be saved.
 	outputDir := dst //created to debug
 
-
-    projectRoot := GetProjectRoot()
-    executionDir := filepath.Join(projectRoot, "cairo/reducer/src") // Updated path
+	projectRoot := GetProjectRoot()
+	executionDir := filepath.Join(projectRoot, "cairo/reducer/src") // Updated path
 
 	// Ensure the output directory exists.
 	err := os.MkdirAll(outputDir, 0755) // 0755 is commonly used permission for directories
@@ -98,10 +123,35 @@ func CallCairoReduce(jobid string, dst string) {
 	cmd.Dir = executionDir
 	cmd.Stdout = outFile
 
+	prove := exec.Command("bash", "prove_reduce.sh")
+	prove.Dir = executionDir
+
 	// Run the command.
 	err = cmd.Run()
 	if err != nil {
 		log.Fatalf("Failed to execute command: %s", err)
+	}
+
+	// Create a pipe to the standard output of the prove command
+	stdoutPipe, err := prove.StdoutPipe()
+	if err != nil {
+		log.Fatalf("Failed to create stdout pipe: %s", err)
+	}
+
+	// Start the prove command
+	if err := prove.Start(); err != nil {
+		log.Fatalf("Failed to start prove command: %s", err)
+	}
+
+	// Read from the pipe using a scanner
+	scanner := bufio.NewScanner(stdoutPipe)
+	for scanner.Scan() {
+		log.Println(scanner.Text()) // Print each line of output
+	}
+
+	// Wait for the prove command to complete
+	if err := prove.Wait(); err != nil {
+		log.Fatalf("Failed to complete prove command: %s", err)
 	}
 
 	fmt.Println("Executed Cairo program successfully, output saved to", fullPath)
