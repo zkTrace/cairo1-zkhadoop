@@ -4,6 +4,11 @@ import (
 	"testing"
 )
 
+func TestCollectProofs(t *testing.T) {
+	// your test code here
+	t.Log("Starting proof colleciton from /app/server/data/mr-tmp")
+	CollectProofs()
+}
 func TestAggregateCairo(t *testing.T) {
 	// your test code here
 	t.Log("Starting file generation test for aggregated mapper file")

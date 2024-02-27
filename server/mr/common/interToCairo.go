@@ -5,13 +5,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
 // This script will take the intermediary file and then write it for the reducer
 func ConvertIntermediateToCairo(input string, dst string) {
 	//for Docker
-	var filename = "/app/server/data/mr-tmp/" + input
+	projectRoot := GetProjectRoot()
+
+	var filename = filepath.Join(projectRoot, "server/data/mr-tmp/"+input)
+	fmt.Printf("BITCH")
+	fmt.Printf(filename)
 	var data Data = read_intermediary(filename)
 
 	//For local test

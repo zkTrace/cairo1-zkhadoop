@@ -3,6 +3,7 @@ package worker
 import (
 	"log"
 	"os"
+	"path/filepath"
 	"server/mr/common"
 	"strconv"
 )
@@ -31,21 +32,18 @@ func processMapTask(job *MapJob) {
 		log.Fatalf("cannot read %v", job.InputFile)
 	}
 
-	jsonDst := "/app/cairo/map/src/matvecdata_mapper.cairo"
+	projectRoot := common.GetProjectRoot()
+
+	jsonDst := filepath.Join(projectRoot, "cairo/map/src/matvecdata_mapper.cairo")
 	common.ConvertJsonToCairo(job.InputFile, jsonDst)
 	// should probably check if the cairo was written successfully
 
-	// *********** SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
-	// Section 1: Aggreagted Mapper Cairo
-	// aggMapDst := "/app/cairo/map/src/agg-lib.cairo"
-	// common.AggregateMapperCairo(aggMapDst)	
-
-	// // Section 2: Aggregated Reducer Cairo
-	// aggRedDst := "/app/cairo/red/src/agg-lib.cairo"
-	// common.AggregateReducerCairo(aggRedDst)
+	// *********** @Trevor Uncomment SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
+	aggMapDst := filepath.Join(projectRoot, "cairo/map/src/agg.cairo")
+	common.AggregateMapperCairo(aggMapDst)
 
 	// Call Cairo Map
-	mapDst := "/app/server/data/mr-tmp"
+	mapDst := filepath.Join(projectRoot, "server/data/mr-tmp")
 	intermediateFiles := common.CallCairoMap(job.MapJobNumber, mapDst)
 
 	// skip partitioning for now, here's normal way:
@@ -59,13 +57,19 @@ func processMapTask(job *MapJob) {
 
 // processReduceTask handles the reduce task, including reading intermediate files, executing the reduce function, and writing the output.
 func processReduceTask(job *ReduceJob) {
+	projectRoot := common.GetProjectRoot()
+
 	// TODO:
 	// call function to read intermediate file to Cairo
 	// TEMP: just 1 reducer for now
-	dst := "/app/cairo/reducer/src/matvecdata_reducer.cairo"
+	dst := filepath.Join(projectRoot, "cairo/reducer/src/matvecdata_reducer.cairo")
 	common.ConvertIntermediateToCairo(job.IntermediateFiles[0], dst)
 
-	reduceDst := "/app/server/data/mr-tmp"
+	// *********** @Trevor Uncomment: SECTION TO INJECT CAIRON all ALL INTO ONE FOR TRACES ***********
+	aggRedDst := filepath.Join(projectRoot, "cairo/reducer/src/agg.cairo")
+	common.AggregateReducerCairo(aggRedDst)
+
+	reduceDst := filepath.Join(projectRoot, "server/data/mr-tmp")
 	reduceNumStr := strconv.Itoa(job.ReduceNumber)
 	common.CallCairoReduce(reduceNumStr, reduceDst)
 

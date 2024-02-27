@@ -10,9 +10,10 @@
 source ~/.bash_profile
 
 # Run your scarb cairo-run command
-scarb cairo-run --available-gas=200000000 
+# scarb cairo-run --available-gas=200000000 # if its too big
+scarb cairo-run 
 
 # Todo: Create a trace of our computation
 # when i import the json need to create a new cair file thne
-# cargo run ../cairo/map/src/lib.cairo --trace_file ../cairo/map/src/mapper.trace.bin --memory_file ../cairo/map/src/mapper.memory.bin --layout starknet_with_keccak --proof_mode
+#cargo run ../cairo/map/src/lib.cairo --trace_file ../cairo/map/src/mapper.trace.bin --memory_file ../cairo/map/src/mapper.memory.bin --layout starknet_with_keccak --proof_mode
 
