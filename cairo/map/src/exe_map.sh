@@ -10,7 +10,8 @@
 source ~/.bash_profile
 
 # Run your scarb cairo-run command
-scarb cairo-run --available-gas=200000000 
+# scarb cairo-run --available-gas=200000000 # if its too big
+scarb cairo-run 
 
 # Todo: Create a trace of our computation
 # when i import the json need to create a new cair file thne

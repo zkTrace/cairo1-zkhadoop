@@ -1,6 +1,8 @@
 source ~/.bash_profile
 $1
-scarb cairo-run --available-gas=200000000 "[$1]" 
+
+scarb cairo-run "[$1]" 
+# scarb cairo-run --available-gas=200000000 "[$1]" 
 
 # Todo: Create a trace of our computation
 # when i import the json need to create a new cair file thne
